@@ -1,0 +1,9 @@
+<h2>Create New Post</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+
+<p><a href="{% url 'Posts' %}">Back to Home</a></p>

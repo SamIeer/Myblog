@@ -16,8 +16,18 @@ Including another URLconf
 """
 from django.urls import path
 from  . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('', views.post_list, name="Posts"),
-    path('post/<int:post_id>/', views.post_detail, name='post_detail')
+    path('',auth_views.LoginView.as_view(template_name='registration/login.html'),name='login'),
+    path('register/',views.register,name='register'),
+
+    path('logout/',auth_views.LogoutView.as_view(template_name='registration/logout.html'),name='logout'),
+    path('posts/', views.post_list, name="Posts"),
+
+    path('post/<int:post_id>/', views.post_detail, name='post_detail'),
+    path('create/',views.create_post,name='create_post'),
+    path('post/<int:post_id>/edit/', views.update_post, name='update_post'),
+    path('post/<int:post_id>/delete/', views.delete_post, name='delete_post'),
+
 ]
