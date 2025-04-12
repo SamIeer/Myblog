@@ -1,35 +1,30 @@
-<h1>All Blog Posts</h1>
-<form action="{% url 'logout' %}" method="post">
-  {% csrf_token %}
-  <button type="submit">Logout</button>
-</form>
 
-
+{% extends 'base.html' %}
+{% block title %}All Posts{% endblock %}
+{% block content %}
+<h1 class="mb-4">All Blog Posts</h1>
 {% for post in posts %}
-  <div>
-    <h2>
-      <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
-    </h2>
-    <p>{{ post.content|truncatewords:30 }}</p>
-    <small>by {{ post.author }} on {{ post.created_at }}</small>
-    {% if user.is_authenticated %}
-        <p><a href="{% url 'create_post' %}">+ Create New Post</a></p>
-        <p><a href="{% url 'update_post' post.id %}">Edit</a></p>
-        <form action="{% url 'delete_post' post.id %}" method="POST" onsubmit="return confirmDelete();">
-          {% csrf_token %}
-          <button type="submit">Delete</button>
-      </form>      
-    {% else %}
-        <p><a href="{% url 'login' %}">Login to create a post</a></p>
-    {% endif %}
-  </div>
-  <hr>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">
+                <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+            </h5>
+            <p class="card-text">{{ post.content|truncatewords:20 }}</p>
+            <small class="text-muted">by {{ post.author }} on {{ post.created }}</small>
+            <p><a href="{% url 'create_post' %}">+ Create New Post</a></p>
+            <p><a href="{% url 'update_post' post.id %}">Edit</a></p>
+            <form action="{% url 'delete_post' post.id %}" method="POST" onsubmit="return confirmDelete();">
+        </div>
+    </div>
 {% empty %}
-  <p>No posts yet.</p>
+<p><a href="{% url 'create_post' %}">+ Create New Post</a></p>
+    <p>No posts yet.</p>
 {% endfor %}
+{% endblock %}
 <script>
   function confirmDelete() {
       return confirm("Are you sure you want to delete this post?");
   }
   </script>
   
+
