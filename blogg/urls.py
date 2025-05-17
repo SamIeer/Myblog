@@ -22,7 +22,7 @@ urlpatterns = [
     path('',auth_views.LoginView.as_view(template_name='registration/login.html'),name='login'),
     path('register/',views.register,name='register'),
 
-    path('/',auth_views.LogoutView.as_view(template_name='registration/logout.html'),name='logout'),
+    path('logout/',auth_views.LogoutView.as_view(template_name='registration/logout.html'),name='logout'),
     path('posts/', views.post_list, name="Posts"),
 
     path('post/<int:post_id>/', views.post_detail, name='post_detail'),
